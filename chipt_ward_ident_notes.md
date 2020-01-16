@@ -3,11 +3,23 @@ author: Matthias Heinz
 title: Notes on Ward identities in chiral perturbation theory
 include-before-body: |
   \newcommand{\U}[1]{\textrm{U}(#1)}
+  \newcommand{\suxsuxu}{\textrm{SU}(3)_{L} \times \textrm{SU}(3)_{R} \times \U{1}_V}
+  \newcommand{\sul}{\textrm{SU}(3)_{L}}
+  \newcommand{\sur}{\textrm{SU}(3)_{R}}
   \newcommand{\Phidag}{\Phi^{\dagger}}
+  \newcommand{\Phistar}{\Phi^{*}}
   \newcommand{\dmulo}[1]{\partial_{\mu}#1}
   \newcommand{\dmuhi}[1]{\partial^{\mu}#1}
   \newcommand{\dmulop}[1]{(\partial_{\mu}#1)}
   \newcommand{\dmuhip}[1]{(\partial^{\mu}#1)}
+  \newcommand{\dmulox}[2]{\partial_{\mu}^{#2}#1}
+  \newcommand{\dmuhix}[2]{\partial^{\mu}^{#2}#1}
+  \newcommand{\dmulopx}[2]{(\partial_{\mu}^{#2}#1)}
+  \newcommand{\dmuhipx}[2]{(\partial^{\mu}^{#2}#1)}
+  \newcommand{\Gmu}{G^{\mu}}
+  \newcommand{\Jmu}{J^{\mu}}
+  \newcommand{\timeorder}[1]{T[#1]}
+  \newcommand{\4ddelta}[2]{\delta^{4}(#1 - #2)}
 ---
 
 # Sources
@@ -45,7 +57,7 @@ with a global $\U{1}$ symmetry:
 
 \begin{equation}
 \mathcal{L} = \frac{1}{2}(\dmulop{\Phidag}\dmuhip{\Phi})
-- \frac{m^2}{2} \Phidag \Phi - \frac{\lambda}{2} (\Phidag \Phi)^2,
+- \frac{m^2}{2} \Phidag \Phi - \frac{\lambda}{4} (\Phidag \Phi)^2,
 \end{equation}
 
 with
@@ -55,15 +67,160 @@ with
   \Phidag(x)& = \frac{1}{\sqrt{2}}(\Phi_1(x) - i \Phi_2(x)).
 \end{align*}
 
-## Things left to do:
+Our Lagrangian is invariant under a global $\U{1}$ transformation:
 
-- Define rigid rotation transformation and define current
-- Define $G$ and give Ward identity
-- Define generating functional
-- Give how external sources must transform under local $\U{1}$ transformation of fields
-- Generating functional is invariant under local transformation
-- Derive master equation
-- Use master equation to derive Ward identity above
+\begin{align*}
+\Phi & \rightarrow (1 + i \epsilon) \Phi, \\ 
+\Phidag & \rightarrow (1 - i \epsilon) \Phidag,
+\end{align*}
+
+giving us the conserved current:
+
+\begin{equation}
+\Jmu = i (\dmuhip{\Phidag} \Phi - \Phidag \dmuhip{\Phi}).
+\end{equation}
+
+After canonical quantization, one can show that
+
+$$
+\Jmu \rightarrow \Jmu
+$$
+
+under the previously mentioned infinitesimal global transformation.
+When considering the Green's function
+
+\begin{equation}
+\Gmu(x,y,z) = \mel*{0}{\timeorder{\Phi(x)\Jmu(y)\Phidag(z)}}{0},
+\end{equation}
+
+we see that it is also invariant under such a transformation,
+a constraint imposed upon it by the symmetry of the theory.
+Note that Green's functions will not always be invariant,
+but will have specified transformation behavior based on the transformation behavior of the fields.
+Furthermore, when considering the divergence of $\Gmu$, one finds:
+
+\begin{equation}
+\dmulox{\Gmu(x,y,z)}{y} = (\delta^4(y-x) - \delta^4(y-z)))\mel*{0}{\timeorder{\Phi(x) \Phidag(z)}}{0}.
+\end{equation}
+
+This Ward identity relates a 3-point Green's function to a 2-point Green's function.
+Next, we will go through the steps necessary to arrive at this result in the path integral formalism,
+which will allow us to learn some general properties of the approach.
+These will help us when we move on to the more complicated $\suxsuxu$
+and will ultimately make the path integral formalism the approach of choice.
+
+To briefly recap the path integral formalism,
+we can calculate correlation functions
+(in this case a 2-point correlation function)
+via the following functional integral:
+
+\begin{equation}
+\mel{0}{\timeorder{\Phidag(x) \Phi(y)}}{0} =
+\frac{\int \mathcal{D}\Phistar \mathcal{D}\Phi \Phistar(x) \Phi(y) \exp(i S[\Phi, \Phistar])}{\int \mathcal{D}\Phistar \mathcal{D}\Phi \exp(i S[\Phi, \Phistar])},
+\end{equation}
+
+where $S[\Phi, \Phistar]$ is the action of our theory:
+
+$$
+S[\Phi, \Phistar] = \int d^4x \mathcal{L}(x).
+$$
+
+To unite all correlation functions containing these operators in one object, we define a generating functional:
+
+\begin{equation}
+W[j, j^{*}] = \mel*{0}{\timeorder{\exp{i\int d^4x[j(x) \Phidag (x) + j^{*}(x) \Phi(x)]}}}{0},
+\end{equation}
+
+where we have introduced external sources $j(x)$ and $j^{*}(x)$.
+With this functional, we can get any Green's function by taking functional derivatives
+with respect to $j$ and $j^{*}$ at the coordinates we are interested in.
+For example, the previous 2-point correlation function can be written as:
+
+$$
+\mel{0}{\timeorder{\Phidag(x) \Phi(y)}}{0} = \left[\left(-i\frac{\delta}{\delta j(x)} \right) \left(-i\frac{\delta}{\delta j^{*}(y)} \right) W[j, j^{*}] \right]_{j=0,j^{*}=0}.
+$$
+
+These functional derivatives bring down factors of $\Phidag$ and $\Phi$ from our functional.
+To discuss Green's functions containing our Noether current $\Jmu$, like $\Gmu$,
+we need to add a source term for our current as well, giving us
+
+\begin{equation}
+W[j, j^{*}, j_{\mu}] = \mel*{0}{\timeorder{\exp{i\int d^4x[j(x) \Phidag (x) + j^{*}(x) \Phi(x) + j_{\mu}(x) \Jmu(x)]}}}{0}.
+\end{equation}
+
+From this, we can write $\Gmu$ as
+
+\begin{equation}
+\Gmu(x,y,z) = \left[(-i)^3 \frac{\delta^3 W[j, j^{*}, j_{\mu}]}{\delta j^{*}(x) \delta j_{\mu}(y) \delta j(z)}\right]_{j=0,j^{*}=0,j_{\mu}=0}.
+\end{equation}
+
+To see the effects of symmetries of our theory on our generating functional,
+let us consider its path integral representation
+
+\begin{equation}
+W[j, j^{*}, j_{\mu}] = 
+\frac{\int \mathcal{D}\Phistar \mathcal{D}\Phi \Phistar(x) \Phi(y) \exp(i S[\Phi, \Phistar])}{\int \mathcal{D}\Phistar \mathcal{D}\Phi \exp(i S[\Phi, \Phistar, j, j^{*}, j_{\mu}])},
+\end{equation}
+
+with
+
+$$
+S[\Phi, \Phistar, j, j^{*}, j_{\mu}] = S[\Phi, \Phistar] + \int d^4x[j(x) \Phistar (x) + j^{*}(x) \Phi(x) + j_{\mu}(x) \Jmu(x)].
+$$
+
+Demanding that this action remain invariant under a *local* infinitesimal $\U{1}$ transformation
+gives us the necessary simultaneous transformation behavior of the external sources:
+
+\begin{align*}
+j(x) & \rightarrow (1 + i \epsilon(x))j(x), \\
+j^{*}(x) & \rightarrow (1 - i \epsilon(x))j^{*}(x), \\
+j_{\mu}(x) & \rightarrow j_{\mu} - \dmulop{\epsilon(x)}.
+\end{align*}
+
+One then also sees that as a result the generating functional is invariant under the same transformation:
+
+\begin{equation}
+W[j, j^{*}, j_{\mu}] = W[j^{\prime}, j^{\prime*}, j^{\prime}_{\mu}].
+\end{equation}
+
+An expansion of the difference between the original and transformed generating functionals in powers of $\epsilon(x)$ gives the condition
+
+$$
+0 = \int d^x \epsilon(x) \left[ i j(x) \frac{\delta}{\delta j(x)} - i j^{*}(x) \frac{\delta}{\delta j^{*}(x)} + \dmulox{\frac{\delta}{\delta j_{\mu}(x)}}{x} \right] W[j, j^{*}, j_{\mu}],
+$$
+
+which due to being valid for all $\epsilon(x)$ simplifies to
+
+\begin{equation}
+\left[ j(x) \frac{\delta}{\delta j(x)} - j^{*}(x) \frac{\delta}{\delta j^{*}(x)} - i \dmulox{\frac{\delta}{\delta j_{\mu}(x)}}{x} \right] W[j, j^{*}, j_{\mu}] = 0.
+\end{equation}
+
+We can now return to the divergence of $\Gmu$ and derive the Ward identity from before:
+
+\begin{align*}
+\dmulox{\Gmu(x, y, z)}{y} & = \left[(-i)^3 \dmulox{\frac{\delta^3 W[j, j^{*}, j_{\mu}]}{\delta j^{*}(x) \delta j_{\mu}(y) \delta j(z)}}{y}\right]_{j=0,j^{*}=0,j_{\mu}=0}, \\
+& = (-i^2) \left\{ \frac{\delta^2}{\delta j^{*}(x) \delta j(z)} \left[(-i) \dmulox{\frac{\delta W}{\delta j_{\mu}(y)}}{y} \right]\right\}_{j=0,j^{*}=0,j_{\mu}=0}, \\
+& = (-i^2) \left\{ \frac{\delta^2}{\delta j^{*}(x) \delta j(z)} \left[j^{*}(y)\frac{\delta W}{\delta j^{*}(y)} - j(y)\frac{\delta W}{\delta j(y)} \right]\right\}_{j=0,j^{*}=0,j_{\mu}=0}, \\
+& = (-i^2) \left\{ \delta^4(y - x)\frac{\delta^2 W}{\delta j^{*}(y)\delta j(z)} - \delta^4(y - z)\frac{\delta W}{\delta j^{*}(x)\delta j(y)} \right\}_{j=0,j^{*}=0,j_{\mu}=0}.
+\end{align*}
+
+Going from the second-to-last line to the last line,
+we used that $\delta j^{*}(y) / \delta j^{*}(x) = \delta^4(y - x)$
+and $\delta j(y) / \delta j(z) = \delta^4(y - z)$
+and the chain rule terms leaving $j^{*}(y)$ and $j(y)$ untouched
+disappear when our sources get set to 0.
+Due to the delta functions, we can replace the $y$ coordinates in the functional derivatives
+with $x$ and $z$ and evaluate the functional derivatives to obtain Green's functions, giving us
+
+$$
+\dmulox{\Gmu(x,y,z)}{y} = (\delta^4(y-x) - \delta^4(y-z)))\mel*{0}{\timeorder{\Phi(x) \Phidag(z)}}{0}.
+$$
+
+The key points to take from this example are:
+
+- the generating functional is invariant under *local* symmetry transformations,
+- the invariance of the functional can be used to derive a master equation
+  that can be used to derive all Ward identities.
 
 # Chiral Green's functions
 
