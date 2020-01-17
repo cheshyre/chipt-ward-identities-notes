@@ -1,9 +1,16 @@
 ---
 author: Matthias Heinz
 title: Notes on Ward identities in chiral perturbation theory
-include-before-body: |
+header-includes:
+  - \usepackage{slashed}
+  - \usepackage{amsmath}
+include-in-header: |
   \newcommand{\U}[1]{\textrm{U}(#1)}
-  \newcommand{\suxsuxu}{\textrm{SU}(3)_{L} \times \textrm{SU}(3)_{R} \times \U{1}_V}
+  \newcommand{\suthree}{\textrm{SU}(3)}
+  \newcommand{\suxsu}{\suthree_{L} \times \suthree_{R}}
+  \newcommand{\suxsuxu}{\suxsu \times \U{1}_V}
+  \newcommand{\suxsuxuxu}{\suxsu \times \U{1}_L \times \U{1}_R}
+  \newcommand{\uxu}{\U{3} \times \U{3}}
   \newcommand{\sul}{\textrm{SU}(3)_{L}}
   \newcommand{\sur}{\textrm{SU}(3)_{R}}
   \newcommand{\Phidag}{\Phi^{\dagger}}
@@ -20,6 +27,22 @@ include-before-body: |
   \newcommand{\Jmu}{J^{\mu}}
   \newcommand{\timeorder}[1]{T[#1]}
   \newcommand{\4ddelta}[2]{\delta^{4}(#1 - #2)}
+  \newcommand{\vecoct}{V_{a}^{\mu}}
+  \newcommand{\axvoct}{A_{a}^{\mu}}
+  \newcommand{\vecsing}{V^{\mu}}
+  \newcommand{\axvsing}{A^{\mu}}
+  \newcommand{\vecoctexpl}{\bar{q}\gamma^{\mu}\frac{\lambda_a}{2}q}
+  \newcommand{\axvoctexpl}{\bar{q}\gamma^{\mu}\gamma_5\frac{\lambda_a}{2}q}
+  \newcommand{\vecsingexpl}{\bar{q}\gamma^{\mu}q}
+  \newcommand{\axvsingexpl}{\bar{q}\gamma^{\mu}\gamma_5q}
+  \newcommand{\scalardensity}[1]{S_{#1}}
+  \newcommand{\scalardensityx}[2]{\scalardensity{#1}(#2)}
+  \newcommand{\scalardensityexpl}[1]{\bar{q} \lambda_{#1} q}
+  \newcommand{\scalardensityexplx}[2]{\bar{q}(#2) \lambda_{#1} q(#2)}
+  \newcommand{\pscalardensity}[1]{P_{#1}}
+  \newcommand{\pscalardensityx}[2]{\pscalardensity{#1}(#2)}
+  \newcommand{\pscalardensityexpl}[1]{i \bar{q} \gamma_5 \lambda_{#1} q}
+  \newcommand{\pscalardensityexplx}[2]{\bar{q}(#2) \gamma_5 \lambda_{#1} q(#2)}
 ---
 
 # Sources
@@ -70,7 +93,7 @@ with
 Our Lagrangian is invariant under a global $\U{1}$ transformation:
 
 \begin{align*}
-\Phi & \rightarrow (1 + i \epsilon) \Phi, \\ 
+\Phi & \rightarrow (1 + i \epsilon) \Phi, \\
 \Phidag & \rightarrow (1 - i \epsilon) \Phidag,
 \end{align*}
 
@@ -158,7 +181,7 @@ To see the effects of symmetries of our theory on our generating functional,
 let us consider its path integral representation
 
 \begin{equation}
-W[j, j^{*}, j_{\mu}] = 
+W[j, j^{*}, j_{\mu}] =
 \frac{\int \mathcal{D}\Phistar \mathcal{D}\Phi \Phistar(x) \Phi(y) \exp(i S[\Phi, \Phistar])}{\int \mathcal{D}\Phistar \mathcal{D}\Phi \exp(i S[\Phi, \Phistar, j, j^{*}, j_{\mu}])},
 \end{equation}
 
@@ -224,11 +247,86 @@ The key points to take from this example are:
 
 # Chiral Green's functions
 
+Recall that in the chiral limit (quarks are massless) the light quark QCD Lagrangian can be written as
+
+\begin{equation}
+\mathcal{L}_{\textrm{QCD}}^{0} = \sum_{l=u,d,s}(\bar{q}_{R,l}i\slashed{D}q_{R,l} + \bar{q}_{L,l}i\slashed{D}q_{L,l})
+- \frac{1}{4} \mathcal{G}_{a\mu\nu} \mathcal{G}_{a}^{\mu\nu}.
+\end{equation}
+
+This Lagrangian is invariant under a global $\uxu$ symmetry:
+
+\begin{align}
+\begin{pmatrix}
+u_L \\ d_L \\ s_L
+\end{pmatrix} & \rightarrow \exp{- i \sum_{a=1}^8 \Theta_{La} \frac{\lambda_a}{2}} e ^{-i \Theta_L}
+\begin{pmatrix}
+u_L \\ d_L \\ s_L
+\end{pmatrix}, \\
+\begin{pmatrix}
+u_R \\ d_R \\ s_R
+\end{pmatrix} & \rightarrow \exp{- i \sum_{a=1}^8 \Theta_{Ra} \frac{\lambda_a}{2}} e ^{-i \Theta_R}
+\begin{pmatrix}
+u_R \\ d_R \\ s_R
+\end{pmatrix},
+\end{align}
+
+which has been explicitly decomposed into an $\suxsuxuxu$ representation.
+Under a corresponding local transformation,
+we find conserved left-handed and right-handed $\suthree$ currents, $L_{a}^{\mu}$ and $R_{a}^{\mu}$,
+and conserved left-handed and right-handed singlet currents, $L^{\mu}$ and $R^{\mu}$.
+After quantizing our theory,
+we find that all the $\suthree$ currents are still conserved,
+defining useful vector and axial-vector linear combinations like:
+
+\begin{align}
+\vecoct &= R_{a}^{\mu} + L_{a}^{\mu} = \vecoctexpl, \\
+\axvoct &= R_{a}^{\mu} - L_{a}^{\mu} = \axvoctexpl.
+\end{align}
+
+We also find that the corresponding singlet vector current
+
+\begin{equation}
+\vecsing = R^{\mu} + L^{\mu} = \vecsingexpl
+\end{equation}
+
+is conserved, but the singlet axial-vector current
+
+$$
+\axvsing = R^{\mu} - L^{\mu} = \axvsingexpl
+$$
+
+is no longer conserved due to quantum corrections,
+referred to as the anomaly.
+
+For chiral Green's functions, we are interested in vacuum expectation values of
+time-ordered products of color-neutral, Hermitian quadratic forms
+(which can be related to processes involving mesons)
+along with our conserved currents.
+We introduce the scalar and pseudoscalar densities
+
+\begin{align}
+\scalardensityx{a}{x} & = \scalardensityexplx{a}{x}, \\
+\pscalardensityx{a}{x} & = \pscalardensityexplx{a}{x},
+\end{align}
+
+where $a=0,...,8$.
+
+One example Green's function is
+
+$$
+\mel*{0}{\timeorder{\axvoct(x)\pscalardensityx{b}{y}}}{0},
+$$
+
+which is related to the pion decay process.
+Chiral Ward identities are refer to Ward identities which relate
+the divergence of a Green's function containing $\vecoct$ or $\axvoct$
+to some other Green's functions.
+In this context, *chiral* refers to the underlying $\suxsu$ group
+to which these currents correspond.
+
 ## Things left to do:
 
-- Introduce color neutral fields
-- Write out example Green's functions
-- Give intuitive interpretation for what these Green's functions are related to
 - Example Green's function and result for divergence
 
 # Chiral Ward identities via the current algebra
