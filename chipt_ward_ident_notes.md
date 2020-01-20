@@ -43,6 +43,7 @@ include-in-header: |
   \newcommand{\pscalardensityx}[2]{\pscalardensity{#1}(#2)}
   \newcommand{\pscalardensityexpl}[1]{i \bar{q} \gamma_5 \lambda_{#1} q}
   \newcommand{\pscalardensityexplx}[2]{\bar{q}(#2) \gamma_5 \lambda_{#1} q(#2)}
+  \newcommand{\commutator}[2]{[#1, #2]}
 ---
 
 # Sources
@@ -314,9 +315,9 @@ where $a=0,...,8$.
 
 One example Green's function is
 
-$$
-\mel*{0}{\timeorder{\axvoct(x)\pscalardensityx{b}{y}}}{0},
-$$
+\begin{equation}
+\Gmu_{APab}(x, y) = \mel*{0}{\timeorder{\axvoct(x)\pscalardensityx{b}{y}}}{0},
+\end{equation}
 
 which is related to the pion decay process.
 Chiral Ward identities are refer to Ward identities which relate
@@ -324,22 +325,94 @@ the divergence of a Green's function containing $\vecoct$ or $\axvoct$
 to some other Green's functions.
 In this context, *chiral* refers to the underlying $\suxsu$ group
 to which these currents correspond.
+We can compute the divergence of our Green's function above, for example, and find
 
-## Things left to do:
+\begin{equation}
+\dmulox{\Gmu_{APab}(x,y)}{x} = \delta(x_0 - y_0) \mel*{0}{\commutator{A_{a}^{0}(x)}{P_{b}(y)}}{0}
++ \mel*{0}{\timeorder{\dmulopx{\axvoct(x)}{x}\pscalardensityx{b}{y}}}{0}.
+\end{equation}
 
-- Example Green's function and result for divergence
+Let us discuss briefly the general properties of this Ward identity.
+First, we get an equal-time commutator of the charge density and the remaining operator.
+Second, we get a term which replaces the Noether current in the original Green's function with its divergence.
+In the exact chiral limit, this term vanishes.
+If the breaking of chiral symmetry is small, we can incorporate this term perturbatively.
+In general, for the divergence of a Green's function with a Noether current and multiple other operators,
+we get a sum of terms with equal-time commutators between the Noether current and the other operators
+and a last term with the divergence of the Noether current.
 
 # Chiral Ward identities via the current algebra
 
-## Things left to do:
+To get a simplified form for these chiral Ward identities,
+we need to evaluate commutators of
+the charge density of our Noether current of interest
+with other Noether currents and our scalar and pseudoscalar densities.
+The original algebra for the charge densities of our Neother currents is
 
-- Recap current algebra
-- Show how naive application of current algebra can lead to wrong results
-- Explain Schwinger term solution
-- Feynman postulate that Schwinger terms and effects of covariant time time-ordering product cancel
-  giving expected commutation relations
+\begin{align}
+\commutator{Q_{La}}{Q_{Lb}} & = i f_{abc} Q_{Lc}, \\
+\commutator{Q_{Ra}}{Q_{Rb}} & = i f_{abc} Q_{Rc}, \\
+\commutator{Q_{La}}{Q_{Rb}} & = 0, \\
+\commutator{Q_{La}}{Q_{V}} & = \commutator{Q_{Ra}}{Q_{V}} = 0.
+\end{align}
+
+This can easily be naively extended to our vector and axial-vector charge densities:
+
+\begin{align}
+\commutator{Q_{Va}}{Q_{Vb}} & = i f_{abc} Q_{Vc}, \\
+\commutator{Q_{Aa}}{Q_{Ab}} & = i f_{abc} Q_{Vc}, \\
+\commutator{Q_{Va}}{Q_{Ab}} & = i f_{abc} Q_{Ac}, \\
+\commutator{Q_{Aa}}{Q_{Vb}} & = i f_{abc} Q_{Ac}, \\
+\commutator{Q_{Aa}}{Q_{V}} & = \commutator{Q_{Va}}{Q_{V}} = 0.
+\end{align}
+
+However, a general derivation of the algebra obeyed by our Noether currents
+and scalar and pseudoscalar densities is potentially error-prone.
+The reason lies in a conceptual inconsistency first noticed by Schwinger,
+which we will illustrate via an example from QED.
+The electromagnetic current space and time components can be,
+through the use of canonical commutation relations,
+shown to commute:
+
+$$
+\commutator{J_{0}(t, \vec{x}}{J_{i}(t, \vec{y}} = 0.
+$$
+
+This implies that the following commutator vanishes:
+
+$$
+\commutator{J_{0}(t, \vec{x}}{\vec{\div}_y \cdot \vec{J}(t, \vec{y})} = - \commutator{J_{0}(t, \vec{x})}{\partial_{t} J_{0}(t, \vec{y})} = 0.
+$$
+
+Evaluating this commutator between the ground state for $\vec{x}=\vec{y}$ yields the result
+
+$$
+\mel*{0}{J_{0}(t, \vec{x})}{n} = 0
+$$
+
+for any intermediate state $\ket*{n}$,
+which is unphysical because it would imply that the charge density operator could not generate $e^+ e^-$ pairs
+when operating on the vacuum.
+A correction to the original commutator containing a derivative of the delta function called the Schwinger term
+alleviates this issue.
+This is because the equal-time commutators can only be determined up to a factor of the derivative of the delta function.
+
+So what does this mean for the chiral Ward identity we saw before?
+Well, it is correct, which one can verify via the path integral formalism that we will discuss soon.
+This comes from the fact that we are considering the naive time-ordered product
+rather than the covariant time-ordered product, which has different behavior at the equal-time points.
+Feynman postulated that the Schwinger terms cancel with the seagull terms from the covariant time-ordered product
+so just using the naive time-ordered product and omitting Schwinger terms gives the right results.
+However, one must tread carefully, and overall this "solution" is fairly unsatisfactory.
 
 # Chiral Ward identities from the generating functional
+
+The previously mentioned problems related to Schwinger terms are absent in the path integral formalism,
+making it more convenient and allowing us to proceed with confidence.
+We will proceed by constructing a generating functional for our Green's functions of interest
+and demanding its invariance under a local transformation of the external fields.
+This invariance is equivalent to the set of all chiral Ward identities
+and can be used to look at divergences of Green's functions.
 
 ## Things left to do:
 
