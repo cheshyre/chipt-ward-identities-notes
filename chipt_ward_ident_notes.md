@@ -491,7 +491,7 @@ $$
 The invariance of the generating functional constrains the transformation properties of the external fields
 which in turn will give rise to the master equation by considering
 the difference between the functional and its infinitesimally transformed counterpart.
-We require of the generating functional that it is
+We require of the Lagrangian in the presence of external fields that it is
 
 - Hermitian,
 - Lorentz scalar,
@@ -555,7 +555,9 @@ where $V_{R}$ and $V_{L}$ are independent SU(3) matrices corresponding to the ri
 $\Theta$ is the transformation parameter for the singlet vector transformation,
 which involves a transformation of all left-handed and right-handed fields by the same phase.
 
-Demanding the invariance of $\mathcal{L}$ (which means the generating functional is invariant as well) under such transformations requires our external fields to transform like:
+Demanding the invariance of $\mathcal{L}$
+(which one can show leads to the invariance of the generating functional)
+under such transformations requires our external fields to transform like:
 
 \begin{align}
 r_{\mu} \rightarrow V_{R} r_{\mu} V_{R}^{\dagger} + i V_{R} \dmulop{V_{R}^{\dagger}}, \\
@@ -570,4 +572,38 @@ However, this is a good point to work from when developing a Lagrangian for an e
 
 # Key takeaways
 
-**TODO**
+## The $\U{1}$ example
+
+- We construct a generating functional for our Green's functions of interest
+  by adding terms which couple our field operators to external fields.
+- With these additional terms it is possible to demand that our full Lagrangian
+  be invariant under *local* $\U{1}$ transformations.
+- One can show that the generating functional is invariant under a local transformation
+  of the external fields.
+  The set of all Ward identities is encoded in this invariance.
+
+## Chiral Ward identities via the algebra of currents
+
+- By considering Green's functions containing our conserved Noether currents
+  and the scalar and pseudoscalar densities, we can describe mesonic processes.
+- It is possible to use the algebra of currents to evaluate commutators that result
+  from considering divergences of chiral Green's functions.
+  These will give explicit forms for chiral Ward identities.
+- The evaluation of commutators via the algebra of currents requires caution
+  due to subtleties involving Schwinger terms from commutators
+  and seagull terms from covariant time-ordering.
+  The generating functional and path integral formalism avoids this difficulty.
+
+## The generating functional of chiral Green's functions
+
+- We introduce couplings to 35 external fields corresponding to our 35 field operators
+  into the Lagrangian to get our generating functional.
+- This generating functional is quite powerful:
+  It contains everything needed to describe light-quark QCD physics in the chiral limit
+  and in the physical case simply based on how we choose our external fields.
+- To fix the transformation properties of the external fields, we demand that
+  $\mathcal{L}$ is Hermitian, Lorentz scalar, even under $P$, $C$, and $T$ separately,
+  and invariant under local chiral transformations.
+- One can in principle show that the generating functional is again invariant under
+  a transformation of the sources.
+  This invariance will contain all chiral Ward identities.
