@@ -42,7 +42,7 @@ include-in-header: |
   \newcommand{\pscalardensity}[1]{P_{#1}}
   \newcommand{\pscalardensityx}[2]{\pscalardensity{#1}(#2)}
   \newcommand{\pscalardensityexpl}[1]{i \bar{q} \gamma_5 \lambda_{#1} q}
-  \newcommand{\pscalardensityexplx}[2]{\bar{q}(#2) \gamma_5 \lambda_{#1} q(#2)}
+  \newcommand{\pscalardensityexplx}[2]{i \bar{q}(#2) \gamma_5 \lambda_{#1} q(#2)}
   \newcommand{\commutator}[2]{[#1, #2]}
   \newcommand{\lext}{\mathcal{L}_{\textrm{ext}}}
 ---
@@ -127,9 +127,11 @@ but will have specified transformation behavior based on the transformation beha
 Furthermore, when considering the divergence of $\Gmu$, one finds:
 
 \begin{equation}
-\dmulox{\Gmu(x,y,z)}{y} = (\delta^4(y-x) - \delta^4(y-z))\mel*{0}{\timeorder{\Phi(x) \Phidag(z)}}{0}.
+\dmulox{\Gmu(x,y,z)}{y} = (\delta^4(y-x) - \delta^4(y-z))\mel*{0}{\timeorder{\Phi(x) \Phidag(z)}}{0}
+ + \mel*{0}{\timeorder{\Phi(x) \dmulopx{\Jmu(y)}{y} \Phidag(z)}}{0}.
 \end{equation}
 
+Note that in this case $\dmulo\Jmu$ vanishes exactly since it is a conserved current.
 This Ward identity relates a 3-point Green's function to a 2-point Green's function.
 Next, we will go through the steps necessary to arrive at this result in the path integral formalism,
 which will allow us to learn some general properties of the approach.
